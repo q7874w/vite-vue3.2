@@ -1,57 +1,1 @@
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "types": [
-      "vite/client"
-    ],
-    "allowJs": true,
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@api/*": [
-        "src/api/*"
-      ],
-      "@request": [
-        "src/utils/request"
-      ],
-      "@const": [
-        "src/utils/const"
-      ],
-      "@config": [
-        "src/config/index"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@store": [
-        "src/store/index"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
-    },
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/components/upload-components/e-importer/index.js",
-    "src/components/upload-components/e-importer/index.js"
-  ]
-}
+{  "compilerOptions": {    "baseUrl": ".",    "target": "esnext",    "useDefineForClassFields": true,    "module": "esnext",    "moduleResolution": "node",    "strict": true,    "jsx": "preserve",    "sourceMap": true,    "resolveJsonModule": true,    "esModuleInterop": true,    "lib": ["esnext", "dom"],    "types": ["vite/client"],    "allowJs": true,    "paths": {      "@/*": ["src/*"],      "@api/*": ["src/api/*"],      "@request": ["src/utils/request"],      "@const": ["src/utils/const"],      "@config": ["src/config/index"],      "@assets/*": ["src/assets/*"],      "@store": ["src/store/index"],      "@utils/*": ["src/utils/*"]    },    "skipLibCheck": true  },  "include": [    "src/**/*.ts",    "src/**/*.d.ts",    "src/**/*.tsx",    "src/**/*.vue",    "src/components/upload-components/e-importer/index.js",    "src/components/upload-components/e-importer/index.js"  ]}
