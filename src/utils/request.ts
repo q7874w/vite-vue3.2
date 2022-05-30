@@ -3,13 +3,13 @@ import config from './config'
 import router from '../router/index'
 import { formatQuery } from './filter'
 
-export default (method: String = 'get', url: String, data: any = {}, headers: any = {}) => {
+export default (method: String = 'get', url: String, data: any = {}, headers: any) => {
   if (method !== 'get') {
     data = formatQuery(data)
   }
   return new Promise((resolve, reject) => {
     const httpRequest: any = axios.create({
-      headers: {
+      headers: headers || {
         'content-type': 'application/x-www-form-urlencoded'
       },
       baseURL: config.hostname,
@@ -35,6 +35,7 @@ export default (method: String = 'get', url: String, data: any = {}, headers: an
           router.push('/login')
           break
         case '400':
+          reject(data)
           break
         default:
           break

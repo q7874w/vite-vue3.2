@@ -1,6 +1,6 @@
 <template>
   <a-layout class="section">
-    <layoutMenu />
+    <layout-menu />
     <a-layout class="main">
       <a-layout-header class="header">Header</a-layout-header>
       <a-layout-content>
