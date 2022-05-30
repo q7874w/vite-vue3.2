@@ -12,6 +12,18 @@ export default defineConfig({
     }
   },
   base: './', // 打包路径
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          'primary-color': '#5439C8',
+          'text-color': '#333',
+          'font-family': 'Avenir, Helvetica, Arial, sans-serif;'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
   server: {
     port: 8000, // 设置项目端口号
     open: false,

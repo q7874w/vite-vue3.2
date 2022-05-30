@@ -1,21 +1,21 @@
 <template>
   <div class="container">
-    <a-form :model="formState" name="normal_login" class="login-form" @finish="onFinish">
-      <a-form-item label="Username" name="username" :rules="[{ required: true, message: '请输入用户名' }]">
+    <a-form :model="formState" name="normal_login" class="login-form" :label-col="{ span: 8 }" @finish="onFinish">
+      <a-form-item label="用户名" name="username" :rules="[{ required: true, message: '请输入用户名' }]">
         <a-input v-model:value="formState.username">
           <template #prefix>
             <UserOutlined class="site-form-item-icon" />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item label="Password" name="password" :rules="[{ required: true, message: '请输入密码' }]">
+      <a-form-item label="密码" name="password" :rules="[{ required: true, message: '请输入密码' }]">
         <a-input-password v-model:value="formState.password">
           <template #prefix>
             <LockOutlined class="site-form-item-icon" />
           </template>
         </a-input-password>
       </a-form-item>
-      <a-form-item>
+      <a-form-item :wrapper-col="{ offset: 8 }">
         <a-button type="primary" html-type="submit" class="login-form-button"> 登录 </a-button>
       </a-form-item>
     </a-form>
@@ -31,21 +31,20 @@
   const router = useRouter()
   const formState = reactive({
     username: '',
-    password: '',
-    remember: true
+    password: ''
+    // remember: true
   })
   const onFinish = (values) => {
     if (values) {
       const randomStr = new Date().getTime()
-      request('post', `/admin/manager/login?randomStr=${randomStr}`, { ...formState, code: '1234', randomStr }).then(
-        (res) => {
-          if (res.code === '200') {
-            localStorage.token = res.data.access_token
-            localStorage.username = res.data.username
-            router.replace('/home')
-          }
+      // request('post', '/admin/manager/login?randomStr=${randomStr}', { ...formState, code: '1234', randomStr }).then((res) => {
+      request('post', '/admin/server/login', { ...formState, code: '1234', randomStr }).then((res) => {
+        if (res.code === '200') {
+          localStorage.token = res.data.access_token
+          localStorage.username = res.data.username
+          router.replace('/home')
         }
-      )
+      })
     }
   }
 </script>
@@ -53,6 +52,16 @@
   .container {
     width: 100%;
     height: 100vh;
-    background-image: url(../../assets/images/);
+    background-image: url('../../assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    .login-form {
+      width: 400px;
+      height: 300px;
+      position: absolute;
+      bottom: 160px;
+      right: 100px;
+    }
   }
 </style>

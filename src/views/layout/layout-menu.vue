@@ -1,26 +1,35 @@
 <template>
   <a-layout-sider class="sider">
-    <div class="logo">12312312</div>
-    <a-menu v-model:selectedKeys="selectedKeys1" theme="dark" mode="inline" :style="{ lineHeight: '64px' }">
-      <a-menu-item key="1">nav 1</a-menu-item>
-      <a-menu-item key="2">nav 2</a-menu-item>
-      <a-menu-item key="3">nav 3</a-menu-item>
-      <a-sub-menu key="sub2">
-        <template #title>Navigation Two</template>
-        <a-menu-item key="9">Option 9</a-menu-item>
-        <a-menu-item key="10">Option 10</a-menu-item>
+    <div class="logo"></div>
+    <a-menu
+      v-for="item in state.menuList"
+      :key="item.id"
+      v-model:selectedKeys="selectedKeys1"
+      theme=""
+      mode="inline"
+      :style="{ lineHeight: '64px' }"
+    >
+      <a-sub-menu :key="item.id">
+        <template #title>{{ item.name }}</template>
+        <div v-for="e in item.children" :key="e.id">
+          <a-menu-item :key="e.id">{{ e.name }}</a-menu-item>
+        </div>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
   import request from '../../utils/request'
+
+  const state = reactive({
+    menuList: []
+  })
   const selectedKeys1 = ref<String[]>(['1'])
   const getMenuList = () => {
-    request('get', '/admin/rest/tenant/account/list').then((res) => {
-      console.log(res)
+    request('get', '/admin/tool/user/admin/menu/info').then((res) => {
+      state.menuList = res.data[0].children
     })
   }
   getMenuList()
@@ -32,5 +41,11 @@
     height: 100vh;
     background-color: #fff;
     border-right: 1px solid #d9d9d9;
+    .logo {
+      height: 64px;
+    }
+  }
+  :deep(.ant-menu-sub) {
+    background-color: #fff;
   }
 </style>

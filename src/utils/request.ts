@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import config from './config'
 import router from '../router/index'
 import { formatQuery } from './filter'
 
-export default (method: String = 'get', url: String, data: any = {}, headers: any) => {
+export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestConfig<any>) => {
   if (method !== 'get') {
     data = formatQuery(data)
   }
