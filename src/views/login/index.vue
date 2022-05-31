@@ -26,7 +26,7 @@
   import { reactive } from 'vue'
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
   import { useRouter } from 'vue-router'
-  import request from '../../utils/request.ts'
+  import { loginApi } from '../../api/home.ts'
 
   const router = useRouter()
   const formState = reactive({
@@ -37,13 +37,16 @@
   const onFinish = (values) => {
     if (values) {
       const randomStr = new Date().getTime()
+      const data = {
+        ...formState,
+        code: '1234',
+        randomStr
+      }
       // request('post', '/admin/manager/login?randomStr=${randomStr}', { ...formState, code: '1234', randomStr }).then((res) => {
-      request('post', '/admin/server/login', { ...formState, code: '1234', randomStr }).then((res) => {
-        if (res.code === '200') {
-          localStorage.token = res.data.access_token
-          localStorage.username = res.data.username
-          router.replace('/home')
-        }
+      loginApi(data).then((res) => {
+        localStorage.token = res.data.access_token
+        localStorage.username = res.data.username
+        router.replace('/home')
       })
     }
   }

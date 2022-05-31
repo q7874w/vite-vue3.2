@@ -1,46 +1,61 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import config from './config'
 import router from '../router/index'
 import { formatQuery } from './filter'
+import { message } from 'ant-design-vue'
+interface responseType {
+  code: String
+  data?: Object | String
+  msg?: String
+}
 
-export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestConfig<any>) => {
+const defaultHeaders = { 'content-type': 'application/x-www-form-urlencoded' }
+
+export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestHeaders = defaultHeaders) => {
   if (method !== 'get') {
     data = formatQuery(data)
   }
   return new Promise((resolve, reject) => {
     const httpRequest: any = axios.create({
-      headers: headers || {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
+      headers,
       baseURL: config.hostname,
-      timeout: 10000
+      timeout: 5000
     })
 
-    httpRequest.interceptors.request.use((config: any) => {
+    httpRequest.interceptors.request.use((config: AxiosResponse) => {
       const token = localStorage.getItem('token')
-      // let token = '5cada3b0-b36e-4df8-bb66-23420f3c12ca'
       if (token) {
         config.headers.Authorization = 'Bearer ' + token
       }
       return config
     })
 
-    httpRequest.interceptors.response.use(({ data, headers }: { data: any; headers: any }) => {
-      switch (data.code) {
-        case '200':
-        case '500':
-          resolve(data)
-          break
-        case '900':
-          router.push('/login')
-          break
-        case '400':
-          reject(data)
-          break
-        default:
-          break
+    httpRequest.interceptors.response.use(
+      ({ data }: { data: responseType }) => {
+        switch (data.code) {
+          case '200':
+          case '500':
+            resolve(data.data)
+            break
+          case '900':
+            router.push('/login')
+            break
+          case '400':
+            message.error(`${data.msg}`)
+            // reject(data.msg)
+            break
+          default:
+            break
+        }
+      },
+      ({ code, config }: AxiosError) => {
+        if (code === 'ECONNABORTED') {
+          message.error(`请求超时：${config.url}`)
+        }
+        // response && message.error(response)
+        return reject(new Error('请求失败'))
       }
-    })
+    )
     httpRequest({
       method,
       url,
