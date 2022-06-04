@@ -10,25 +10,29 @@
       :style="{ lineHeight: '64px' }"
     >
       <a-sub-menu :key="item.id">
-        <template #title>{{ item.name }}</template>
+        <template #title><apartment-outlined />{{ item.name }}</template>
         <div v-for="e in item.children" :key="e.id">
-          <a-menu-item :key="e.id">{{ e.name }}</a-menu-item>
+          <a-menu-item :key="e.id"><appstore-add-outlined />{{ e.name }}</a-menu-item>
         </div>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 
-<script setup lang="ts">
+<script setup>
+  /***
+   * TODO
+   * [] TS类型校验后面再加，先完成功能
+   */
   import { ref, reactive } from 'vue'
-  import request from '../../utils/request'
+  import { getMenuListApi } from '@api/home'
 
   const state = reactive({
     menuList: []
   })
-  const selectedKeys1 = ref<String[]>(['1'])
+  const selectedKeys1 = ref(['1'])
   const getMenuList = () => {
-    request('get', '/admin/tool/user/admin/menu/info').then((res) => {
+    getMenuListApi().then((res) => {
       state.menuList = res.data[0].children
     })
   }

@@ -3,16 +3,12 @@ import config from './config'
 import router from '../router/index'
 import { formatQuery } from './filter'
 import { message } from 'ant-design-vue'
-interface responseType {
-  code: String
-  data?: Object | String
-  msg?: String
-}
+import { responseType } from './type'
 
 const defaultHeaders = { 'content-type': 'application/x-www-form-urlencoded' }
 
 export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestHeaders = defaultHeaders) => {
-  if (method !== 'get') {
+  if (method !== 'get' && headers === defaultHeaders) {
     data = formatQuery(data)
   }
   return new Promise((resolve, reject) => {
@@ -35,7 +31,7 @@ export default (method: String = 'get', url: String, data: any = {}, headers: Ax
         switch (data.code) {
           case '200':
           case '500':
-            resolve(data.data)
+            resolve(data)
             break
           case '900':
             router.push('/login')

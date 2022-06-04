@@ -1,4 +1,4 @@
-import request from '../utils/request'
+import request from '@utils/request'
 interface apiType {
   randomStr?: String | Number
 }
@@ -7,4 +7,7 @@ export const loginApi = (data: Object) => {
 }
 export const scrmLoginApi = (data: apiType) => {
   return request('post', `/admin/manager/login?randomStr=${data.randomStr}`, data)
+}
+export const getMenuListApi = () => {
+  return request('get', '/admin/tool/user/admin/menu/info')
 }

@@ -26,7 +26,7 @@
   import { reactive } from 'vue'
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
   import { useRouter } from 'vue-router'
-  import { loginApi } from '../../api/home.ts'
+  import { loginApi } from '@api/home.ts'
 
   const router = useRouter()
   const formState = reactive({

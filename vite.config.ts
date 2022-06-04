@@ -8,7 +8,9 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': `${pathSrc}`
+      '@': `${pathSrc}`,
+      '@api': `${pathSrc}/api`,
+      '@utils': `${pathSrc}/utils`
     }
   },
   base: './', // 打包路径
