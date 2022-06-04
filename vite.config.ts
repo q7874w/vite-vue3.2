@@ -33,7 +33,7 @@ export default defineConfig({
     // 代理配置
     proxy: {
       '/api': {
-        target: 'http://www.ylwl.com/test', // 后台接口
+        target: 'https://temp.elianzhixiao.com/gateway', // 后台接口
         changeOrigin: true /* 允许跨域 */,
         secure: false, // 如果是https接口，需要配置这个参数
         ws: true, // websocket支持

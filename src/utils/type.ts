@@ -1,5 +1,5 @@
 export interface responseType {
-  code: String
+  code: Number
   data?: Object | String | Array<any>
   msg?: String
 }

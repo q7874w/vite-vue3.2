@@ -11,3 +11,6 @@ export const scrmLoginApi = (data: apiType) => {
 export const getMenuListApi = () => {
   return request('get', '/admin/tool/user/admin/menu/info')
 }
+export const ElLoginApi = (data: Object) => {
+  return request('post', '/function/user/manageLogin', data)
+}

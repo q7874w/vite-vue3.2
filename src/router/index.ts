@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     alias: '/home',
     component: () => import('../views/layout/index.vue'),
-    children: []
+    children: [{ path: 'xtpzgl', component: () => import('../views/testPage/index.vue') }]
   },
   { path: '/login', component: () => import('../views/login/index.vue') }
 ]

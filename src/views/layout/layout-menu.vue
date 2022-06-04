@@ -9,10 +9,10 @@
       mode="inline"
       :style="{ lineHeight: '64px' }"
     >
-      <a-sub-menu :key="item.id">
-        <template #title><apartment-outlined />{{ item.name }}</template>
+      <a-sub-menu :key="item.pkId">
+        <template #title><apartment-outlined />{{ item.funcName }}</template>
         <div v-for="e in item.children" :key="e.id">
-          <a-menu-item :key="e.id"><appstore-add-outlined />{{ e.name }}</a-menu-item>
+          <a-menu-item :key="e.pkId" @click="routerSkip(e.path)"><appstore-add-outlined />{{ e.funcName }}</a-menu-item>
         </div>
       </a-sub-menu>
     </a-menu>
@@ -25,18 +25,23 @@
    * [] TS类型校验后面再加，先完成功能
    */
   import { ref, reactive } from 'vue'
-  import { getMenuListApi } from '@api/home'
-
+  // import { getMenuListApi } from '@api/home'
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
   const state = reactive({
     menuList: []
   })
+  state.menuList = JSON.parse(localStorage.menuList)
   const selectedKeys1 = ref(['1'])
-  const getMenuList = () => {
-    getMenuListApi().then((res) => {
-      state.menuList = res.data[0].children
-    })
+  // const getMenuList = () => {
+  //   getMenuListApi().then((res) => {
+  //     state.menuList = res.data[0].children
+  //   })
+  // }
+  // getMenuList()
+  const routerSkip = (path) => {
+    router.push(path)
   }
-  getMenuList()
 </script>
 
 <style scoped lang="less">

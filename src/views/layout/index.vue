@@ -4,8 +4,6 @@
     <a-layout class="main">
       <a-layout-header class="header">Header</a-layout-header>
       <a-layout-content>
-        <a-button type="primary" class="login-form-button"> 登录 </a-button>
-
         <router-view />
       </a-layout-content>
     </a-layout>

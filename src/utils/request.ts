@@ -21,7 +21,8 @@ export default (method: String = 'get', url: String, data: any = {}, headers: Ax
     httpRequest.interceptors.request.use((config: AxiosResponse) => {
       const token = localStorage.getItem('token')
       if (token) {
-        config.headers.Authorization = 'Bearer ' + token
+        config.headers.token = token
+        // config.headers.Authorization = 'Bearer ' + token
       }
       return config
     })
@@ -29,14 +30,15 @@ export default (method: String = 'get', url: String, data: any = {}, headers: Ax
     httpRequest.interceptors.response.use(
       ({ data }: { data: responseType }) => {
         switch (data.code) {
-          case '200':
-          case '500':
-            resolve(data)
+          case 200:
+          case 500:
+            resolve(data.data)
             break
-          case '900':
+          case 900:
+          case 402:
             router.push('/login')
             break
-          case '400':
+          case 400:
             message.error(`${data.msg}`)
             // reject(data.msg)
             break
