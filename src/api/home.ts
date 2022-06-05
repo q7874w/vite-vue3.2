@@ -14,3 +14,6 @@ export const getMenuListApi = () => {
 export const ElLoginApi = (data: Object) => {
   return request('post', '/function/user/manageLogin', data)
 }
+export const getLabelApi = (data: Object) => {
+  return request('get', '/business/evaluationRecord/getEvaluationList', data)
+}

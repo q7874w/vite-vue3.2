@@ -10,6 +10,8 @@ const defaultHeaders = { 'content-type': 'application/x-www-form-urlencoded' }
 export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestHeaders = defaultHeaders) => {
   if (method !== 'get' && headers === defaultHeaders) {
     data = formatQuery(data)
+  } else if (method === 'get') {
+    url += `?${formatQuery(data)}`
   }
   return new Promise((resolve, reject) => {
     const httpRequest: any = axios.create({
@@ -32,7 +34,7 @@ export default (method: String = 'get', url: String, data: any = {}, headers: Ax
         switch (data.code) {
           case 200:
           case 500:
-            resolve(data.data)
+            resolve(data)
             break
           case 900:
           case 402:

@@ -45,9 +45,9 @@
       // request('post', '/admin/manager/login?randomStr=${randomStr}', { ...formState, code: '1234', randomStr }).then((res) => {
       ElLoginApi(data).then((res) => {
         console.log(res, 'res')
-        localStorage.token = res.token
-        localStorage.username = res.userName
-        localStorage.menuList = JSON.stringify(res.menuTreeList)
+        localStorage.token = res.data.token
+        localStorage.username = res.data.userName
+        localStorage.menuList = JSON.stringify(res.data.menuTreeList)
         router.replace('/home')
       })
     }
