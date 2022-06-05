@@ -3,7 +3,7 @@
     <div class="logo"></div>
     <a-menu
       v-for="item in state.menuList"
-      :key="item.id"
+      :key="item.funcName"
       v-model:selectedKeys="selectedKeys1"
       theme=""
       mode="inline"
@@ -12,7 +12,7 @@
       <a-sub-menu :key="item.pkId">
         <template #title><apartment-outlined />{{ item.funcName }}</template>
         <div v-for="e in item.children" :key="e.id">
-          <a-menu-item :key="e.pkId" @click="routerSkip(e.path)"><appstore-add-outlined />{{ e.funcName }}</a-menu-item>
+          <a-menu-item :key="e.pkId" @click="routerSkip(e)"><appstore-add-outlined />{{ e.funcName }}</a-menu-item>
         </div>
       </a-sub-menu>
     </a-menu>
@@ -32,15 +32,16 @@
     menuList: []
   })
   state.menuList = JSON.parse(localStorage.menuList)
-  const selectedKeys1 = ref(['1'])
+  const selectedKeys1 = ref([])
   // const getMenuList = () => {
   //   getMenuListApi().then((res) => {
   //     state.menuList = res.data[0].children
   //   })
   // }
   // getMenuList()
-  const routerSkip = (path) => {
-    router.push(path)
+  const routerSkip = (e) => {
+    // selectedKeys1.value = [e.pkId]
+    router.push(e.path)
   }
 </script>
 

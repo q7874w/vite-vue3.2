@@ -2,7 +2,7 @@
   <a-layout class="section">
     <layout-menu />
     <a-layout class="main">
-      <a-layout-header class="header">Header</a-layout-header>
+      <layout-header></layout-header>
       <a-layout-content>
         <router-view />
       </a-layout-content>
@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-  import layoutMenu from './layout-menu.vue'
+  import LayoutMenu from './layout-menu.vue'
+  import LayoutHeader from './layout-header.vue'
 </script>
 
 <style scoped lang="less">
