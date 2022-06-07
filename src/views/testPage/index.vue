@@ -1,6 +1,14 @@
 <template>
   <div>
     <m-table v-model="query" :columns="columns" :table-data="tableData" :show-selection="true" @getData="getData">
+      <template #name>
+        <smile-outlined />
+        学生姓名
+      </template>
+      <template #score="{ record }">
+        <a-rate :value="record.evaluationScore" disabled />
+      </template>
+      <template #submitter="{ record }"> <smile-outlined />{{ record.submitter }} </template>
     </m-table>
   </div>
 </template>
@@ -17,15 +25,18 @@
     },
     {
       title: '学生',
-      dataIndex: 'studentName'
+      dataIndex: 'studentName',
+      headerSlots: { customRender: 'name' }
     },
     {
       title: '评星',
-      dataIndex: 'evaluationScore'
+      dataIndex: 'evaluationScore',
+      scopedSlots: { customRender: 'score' }
     },
     {
       title: '提交人',
-      dataIndex: 'submitter'
+      dataIndex: 'submitter',
+      scopedSlots: { customRender: 'submitter' }
     },
     {
       title: '评价时间',
@@ -49,7 +60,7 @@
     selectedRowKeys: [],
     loading: false
   })
-  const query = ref({
+  const query = reactive({
     current: 1,
     size: 10,
     total: 0
@@ -58,7 +69,7 @@
   const getData = () => {
     state.loading = true
     const data = {
-      ...query.value,
+      ...query,
       businessType: 'QDFW',
       schoolAppId: '1331785024165228545',
       schoolId: '1331786156899938305'
@@ -68,7 +79,7 @@
       state.loading = false
       state.selectedRowKeys = []
       tableData.value = res.data.resultData
-      query.value.total = res.total
+      query.total = res.total
     })
   }
   getData()

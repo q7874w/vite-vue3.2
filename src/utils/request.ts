@@ -3,7 +3,7 @@ import config from './config'
 import router from '../router/index'
 import { formatQuery } from './filter'
 import { message } from 'ant-design-vue'
-import { responseType } from './type'
+import { responseType } from '@/const/type'
 
 const defaultHeaders = { 'content-type': 'application/x-www-form-urlencoded' }
 

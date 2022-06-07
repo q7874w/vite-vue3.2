@@ -10,16 +10,22 @@
       total: parseInt(page.total),
       showQuickJumper: true,
       showSizeChanger: true,
-      showTotal: (total) => `共 ${page.total} 条记录`,
+      showTotal: () => `共 ${page.total} 条记录`,
       // ...props.value,
       onChange
     }"
   >
+    <template #headerCell="{ column }">
+      <slot v-if="column.headerSlots" :name="column.headerSlots.customRender"></slot>
+    </template>
+    <template #bodyCell="{ column, record }">
+      <slot v-if="column.scopedSlots" :name="column.scopedSlots.customRender" :record="record"></slot>
+    </template>
   </a-table>
 </template>
 
 <script setup>
-  import { defineProps, computed, reactive, defineEmits } from 'vue'
+  import { computed, reactive } from 'vue'
   const emit = defineEmits(['update:modelValue', 'getData'])
   const props = defineProps({
     modelValue: {
@@ -61,6 +67,7 @@
   const onSelectChange = (selectedRowKeys) => {
     state.selectedRowKeys = selectedRowKeys
   }
+
   const state = reactive({
     selectedRowKeys: [],
     loading: false

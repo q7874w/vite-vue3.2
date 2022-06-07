@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
+  import { ref, watch, reactive } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   const route = useRoute()
   const router = useRouter()
@@ -23,9 +23,9 @@
     showHamburg.value = !showHamburg.value
   }
 
-  const breadcrumbList = ref([])
+  let breadcrumbList = reactive([])
   const initBreadcrumbList = () => {
-    breadcrumbList.value = route.matched
+    breadcrumbList = route.matched
   }
   watch(
     route,
