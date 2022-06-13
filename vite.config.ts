@@ -27,6 +27,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0',
     port: 8000, // 设置项目端口号
     open: false,
     cors: true, // 允许跨域
