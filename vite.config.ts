@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       '@': `${pathSrc}`,
       '@api': `${pathSrc}/api`,
+      '@a': `${pathSrc}/api`,
       '@utils': `${pathSrc}/utils`
     }
   },
@@ -27,7 +28,8 @@ export default defineConfig({
     }
   },
   server: {
-    port: 8000, // 设置项目端口号
+    host: '0.0.0.0',
+    port: 8888, // 设置项目端口号
     open: false,
     cors: true, // 允许跨域
     // 代理配置

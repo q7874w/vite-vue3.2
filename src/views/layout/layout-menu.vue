@@ -10,25 +10,44 @@
       :style="{ lineHeight: '64px' }"
     >
       <a-sub-menu :key="item.id">
-        <template #title><apartment-outlined />{{ item.name }}</template>
+        <template #title>
+          <!-- <apartment-outlined /> -->
+          {{ item.name }}
+        </template>
         <div v-for="e in item.children" :key="e.id">
-          <a-menu-item :key="e.id"><appstore-add-outlined />{{ e.name }}</a-menu-item>
+          <a-menu-item :key="e.id" @click="itemClick(e)">
+            <!-- <appstore-add-outlined /> -->
+            {{ e.name }}
+          </a-menu-item>
         </div>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 
-<script setup>
+<script setup lang="ts">
   /***
    * TODO
    * [] TS类型校验后面再加，先完成功能
    */
   import { ref, reactive } from 'vue'
-  import { getMenuListApi } from '@api/home'
+  import { getMenuListApi } from '@/api/home'
+  import { useRouter } from 'vue-router'
+  type itemType = {
+    id: string
+    name: string
+    children?: childrenType[]
+  }
+  type childrenType = {
+    id: string
+    name: string
+    componentPath: string
+    children?: childrenType[]
+  }
+  const router = useRouter()
 
   const state = reactive({
-    menuList: []
+    menuList: <itemType[]>[]
   })
   const selectedKeys1 = ref(['1'])
   const getMenuList = () => {
@@ -37,6 +56,9 @@
     })
   }
   getMenuList()
+  const itemClick = (item: childrenType) => {
+    router.push(item.componentPath)
+  }
 </script>
 
 <style scoped lang="less">

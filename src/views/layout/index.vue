@@ -3,9 +3,7 @@
     <layout-menu />
     <a-layout class="main">
       <a-layout-header class="header">Header</a-layout-header>
-      <a-layout-content>
-        <a-button type="primary" class="login-form-button"> 登录 </a-button>
-
+      <a-layout-content class="content">
         <router-view />
       </a-layout-content>
     </a-layout>
@@ -26,6 +24,10 @@
       flex: 1;
       .header {
         background-color: #fff;
+      }
+      .content {
+        background-color: rgb(242, 243, 247);
+        padding: 15px;
       }
     }
   }

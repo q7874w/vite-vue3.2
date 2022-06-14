@@ -4,10 +4,15 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     alias: '/home',
-    component: () => import('../views/layout/index.vue'),
-    children: []
+    component: () => import('../views/Layout/index.vue'),
+    children: [
+      {
+        path: '/applicationInfo',
+        component: () => import('../views/BusinessManagement/ApplicationInfo/index.vue')
+      }
+    ]
   },
-  { path: '/login', component: () => import('../views/login/index.vue') }
+  { path: '/login', component: () => import('../views/Login/index.vue') }
 ]
 
 const router: Router = createRouter({
