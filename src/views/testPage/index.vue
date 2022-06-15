@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import MTable from '@/components/m-table.vue'
   import { getLabelApi } from '@api/home'
   import { reactive, ref } from 'vue'
@@ -66,16 +66,25 @@
     total: 0
   })
   const tableData = ref([])
+
+  interface resDataType {
+    current: number | string
+    size: number | string
+    total?: number | string
+    businessType?: string
+    schoolAppId?: string
+    schoolId?: string
+  }
   const getData = () => {
     state.loading = true
-    const data = {
+    const data: resDataType = {
       ...query,
       businessType: 'QDFW',
       schoolAppId: '1331785024165228545',
       schoolId: '1331786156899938305'
     }
     delete data.total
-    getLabelApi(data).then((res) => {
+    getLabelApi(data).then((res: any) => {
       state.loading = false
       state.selectedRowKeys = []
       tableData.value = res.data.resultData
