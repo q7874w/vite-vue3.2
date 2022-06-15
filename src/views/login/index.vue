@@ -15,18 +15,20 @@
           </template>
         </a-input-password>
       </a-form-item>
+      {{ state.name }}
       <a-form-item :wrapper-col="{ offset: 8 }">
         <a-button type="primary" html-type="submit" class="login-form-button"> 登录 </a-button>
       </a-form-item>
+      <a-button type="primary" class="login-form-button" @click="changeState"> 修改 </a-button>
     </a-form>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { reactive } from 'vue'
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
   import { useRouter } from 'vue-router'
-  import { ElLoginApi } from '@api/home.ts'
+  import { ElLoginApi } from '@api/home'
 
   const router = useRouter()
   const formState = reactive({
@@ -34,7 +36,14 @@
     password: ''
     // remember: true
   })
-  const onFinish = (values) => {
+  const state = reactive({
+    name: '二伍仔'
+  })
+  const changeState = () => {
+    state.name = '45678f'
+  }
+
+  const onFinish = (values: boolean) => {
     if (values) {
       // const randomStr = new Date().getTime()
       const data = {
@@ -43,8 +52,7 @@
         // randomStr
       }
       // request('post', '/admin/manager/login?randomStr=${randomStr}', { ...formState, code: '1234', randomStr }).then((res) => {
-      ElLoginApi(data).then((res) => {
-        console.log(res, 'res')
+      ElLoginApi(data).then((res: any) => {
         localStorage.token = res.data.token
         localStorage.username = res.data.userName
         localStorage.menuList = JSON.stringify(res.data.menuTreeList)

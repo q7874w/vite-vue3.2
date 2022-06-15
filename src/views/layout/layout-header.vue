@@ -12,9 +12,10 @@
   </a-layout-header>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { ref, watch, reactive } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute, useRouter, RouteLocationMatched } from 'vue-router'
+
   const route = useRoute()
   const router = useRouter()
 
@@ -23,7 +24,7 @@
     showHamburg.value = !showHamburg.value
   }
 
-  let breadcrumbList = reactive([])
+  let breadcrumbList: RouteLocationMatched[] = reactive([])
   const initBreadcrumbList = () => {
     breadcrumbList = route.matched
   }
@@ -35,7 +36,7 @@
     { deep: true, immediate: true }
   )
 
-  const handleRedirect = (path) => {
+  const handleRedirect = (path: string) => {
     router.push(path)
   }
 </script>

@@ -14,6 +14,8 @@
     "types": ["vite/client"],
     "allowJs": true,
     "paths": {
+      "@": ["src"],
+      "@/": ["src/"],
       "@/*": ["src/*"],
       "@api/*": ["src/api/*"],
       "@request": ["src/utils/request"],

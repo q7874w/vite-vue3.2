@@ -19,7 +19,7 @@
   </a-layout-sider>
 </template>
 
-<script setup>
+<script setup lang="ts">
   /***
    * TODO
    * [] TS类型校验后面再加，先完成功能
@@ -27,9 +27,23 @@
   import { ref, reactive } from 'vue'
   // import { getMenuListApi } from '@api/home'
   import { useRouter } from 'vue-router'
+
+  type menuType = {
+    funcName: string
+    pkId: string
+    path: string
+    children: menuChildren[]
+  }
+  type menuChildren = {
+    funcName: string
+    pkId: string
+    path: string
+    id: string
+    children: menuChildren[]
+  }
   const router = useRouter()
   const state = reactive({
-    menuList: []
+    menuList: <menuType[]>[]
   })
   state.menuList = JSON.parse(localStorage.menuList)
   const selectedKeys1 = ref([])
@@ -39,7 +53,8 @@
   //   })
   // }
   // getMenuList()
-  const routerSkip = (e) => {
+
+  const routerSkip = (e: menuChildren) => {
     // selectedKeys1.value = [e.pkId]
     router.push(e.path)
   }
