@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive } from 'vue'
   import { getApplicationApi } from '@/api/home'
   const columns = [
     { title: '应用名称', dataIndex: 'name' },

@@ -23,15 +23,13 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive } from 'vue'
-  import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-  import { useRouter } from 'vue-router'
   import { loginApi } from '@api/home'
   const router = useRouter()
   const formState = reactive({
     username: '',
     password: ''
   })
+
   const onFinish = (values: boolean) => {
     if (values) {
       const randomStr = new Date().getTime()

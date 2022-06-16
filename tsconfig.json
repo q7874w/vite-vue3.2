@@ -17,6 +17,7 @@
       "@": ["src"],
       "@/": ["src/"],
       "@/*": ["src/*"],
+      "@comp/*": ["src/components"],
       "@api/*": ["src/api/*"],
       "@request": ["src/utils/request"],
       "@const": ["src/utils/const"],

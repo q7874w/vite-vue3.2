@@ -10,7 +10,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-    'eslint:recommended'
+    'eslint:recommended',
+    './.eslintrc-auto-import.json'
   ],
   parserOptions: {
     ecmaVersion: 'latest',

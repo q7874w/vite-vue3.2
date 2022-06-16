@@ -12,10 +12,13 @@
 
 <script setup lang="ts">
   import { ref, watch } from 'vue'
-  interface propsType {
+  type propsType = {
     modelValue: string
   }
   const props = defineProps<propsType>()
+  // withDefaults(defineProps<propsType>(), {
+  //   modelValue: '12'
+  // })
   const emits = defineEmits(['update:modelValue', 'search'])
   const searchValue = ref<string>('')
 
@@ -27,7 +30,8 @@
   )
 
   function input(e: Event) {
-    searchValue.value = (<HTMLInputElement>e.target).value
+    // searchValue.value = (<HTMLInputElement>e.target).value
+    searchValue.value = (e.target as HTMLInputElement).value
     emits('update:modelValue', searchValue.value)
   }
 
