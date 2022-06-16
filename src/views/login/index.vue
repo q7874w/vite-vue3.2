@@ -19,15 +19,11 @@
         <a-button type="primary" html-type="submit" class="login-form-button"> 登录 </a-button>
       </a-form-item>
     </a-form>
-    {{ msg }}
-
-    {{ newName }}
-    <a-button type="primary" @click="changeMsg">修改 </a-button>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { reactive, customRef, computed } from 'vue'
+  import { reactive } from 'vue'
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
   import { useRouter } from 'vue-router'
   import { loginApi } from '@api/home'
@@ -35,32 +31,7 @@
   const formState = reactive({
     username: '',
     password: ''
-    // remember: true
   })
-  const newName = computed(() => {
-    return formState.username + formState.password
-  })
-
-  function MyRef<T>(value: T) {
-    return customRef((track, trigger) => {
-      return {
-        get() {
-          track()
-          return value
-        },
-        set(newValue: T) {
-          value = newValue
-          trigger()
-        }
-      }
-    })
-  }
-
-  let msg = MyRef('小郭')
-  const changeMsg = () => {
-    msg.value = '老郭'
-  }
-
   const onFinish = (values: boolean) => {
     if (values) {
       const randomStr = new Date().getTime()
@@ -69,7 +40,6 @@
         code: '1234',
         randomStr
       }
-      // request('post', '/admin/manager/login?randomStr=${randomStr}', { ...formState, code: '1234', randomStr }).then((res) => {
       loginApi(data).then((res: any) => {
         localStorage.token = res.data.access_token
         localStorage.username = res.data.username
