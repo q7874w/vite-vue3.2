@@ -11,7 +11,8 @@ export default defineConfig({
       '@': `${pathSrc}`,
       '@api': `${pathSrc}/api`,
       '@a': `${pathSrc}/api`,
-      '@utils': `${pathSrc}/utils`
+      '@utils': `${pathSrc}/utils`,
+      '@com': `${pathSrc}/components`
     }
   },
   base: './', // 打包路径

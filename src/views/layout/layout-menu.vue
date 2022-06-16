@@ -33,6 +33,8 @@
   import { ref, reactive } from 'vue'
   import { getMenuListApi } from '@/api/home'
   import { useRouter } from 'vue-router'
+  import { menuData } from '@/assets/menu'
+
   type itemType = {
     id: string
     name: string
@@ -51,8 +53,8 @@
   })
   const selectedKeys1 = ref(['1'])
   const getMenuList = () => {
-    getMenuListApi().then((res) => {
-      state.menuList = res.data[0].children
+    getMenuListApi().then((res: any) => {
+      state.menuList = res.data ? res.data[0].children : menuData
     })
   }
   getMenuList()

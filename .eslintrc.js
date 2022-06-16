@@ -18,6 +18,12 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
+  globals: {
+    defineProps: true,
+    defineEmits: true,
+    defineExpose: true,
+    withDefaults: true
+  },
   // rules: {
   //   'vue/multi-word-component-names': 'off', // 解决文件名必须是两个以上单词的警告
   //   indent: ['off', 2], // 解决缩进2个空格的问题

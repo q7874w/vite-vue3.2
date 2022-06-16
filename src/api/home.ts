@@ -8,9 +8,9 @@ export const loginApi = (data: Object) => {
 export const scrmLoginApi = (data: apiType) => {
   return request('post', `/admin/manager/login?randomStr=${data.randomStr}`, data)
 }
-export const getMenuListApi = (): Promise<any> => {
+export const getMenuListApi = () => {
   return request('get', '/admin/tool/user/admin/menu/info')
 }
-export const getApplicationApi = (data: Object) => {
-  return request('get', '/admin/rest/system/application/info/list', data)
+export const getApplicationApi = (params: Object) => {
+  return request('get', '/admin/rest/system/application/info/list', null, params)
 }

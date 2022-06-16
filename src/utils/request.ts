@@ -7,10 +7,15 @@ import { responseType } from './type'
 
 const defaultHeaders = { 'content-type': 'application/x-www-form-urlencoded' }
 
-export default (method: String = 'get', url: String, data: any = {}, headers: AxiosRequestHeaders = defaultHeaders) => {
+export default (
+  method: String = 'get',
+  url: String,
+  data: any = {},
+  params: any = null,
+  headers: AxiosRequestHeaders = defaultHeaders
+) => {
   if (headers === defaultHeaders) {
     data = formatQuery(data)
-    console.log(data)
   }
   return new Promise((resolve, reject) => {
     const httpRequest: any = axios.create({
@@ -56,7 +61,8 @@ export default (method: String = 'get', url: String, data: any = {}, headers: Ax
     httpRequest({
       method,
       url,
-      data
+      data,
+      params
     })
   })
 }

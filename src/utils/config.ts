@@ -4,11 +4,11 @@ const config = {
   development: {
     env: 'dev',
     hostname: '/api'
-    // hostname: 'http://www.ylwl.com/test'
+    // hostname: 'http://192.168.50.17/api'
   },
   test: {
     env: 'test',
-    hostname: 'http://www.ylwl.com/test'
+    hostname: 'http://192.168.50.17/test'
   },
   prod: {
     env: 'prod',
