@@ -15,7 +15,8 @@
   type propsType = {
     modelValue: string
   }
-  const props = defineProps<propsType>()
+  const props: propsType = defineProps()
+  // const props = defineProps<propsType>()
   // withDefaults(defineProps<propsType>(), {
   //   modelValue: '12'
   // })

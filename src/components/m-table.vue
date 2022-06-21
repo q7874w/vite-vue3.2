@@ -27,37 +27,63 @@
 <script setup lang="ts">
   import { computed, reactive } from 'vue'
   const emit = defineEmits(['update:modelValue', 'getData'])
-  const props = defineProps({
-    modelValue: {
-      type: Object,
-      default: () => {
-        return { current: 1, size: 10, total: 0 }
-      }
+  type columnType = {}
+  type pageType = {
+    current: number | string
+    size: number | string
+    total: string
+  }
+  type dataType = {
+    records: any[]
+  }
+  type propsType = {
+    modelValue?: pageType
+    showSelection?: boolean
+    columns: columnType[]
+    tableData: dataType
+    rowKey?: string
+    tableHeight?: number
+  }
+  // 定义props默认值
+  const props = withDefaults(defineProps<propsType>(), {
+    modelValue: () => {
+      return { current: 1, size: 10, total: '0' }
     },
-    showSelection: {
-      type: Boolean,
-      default: false
-    },
-    columns: {
-      type: Array,
-      required: true
-    },
-    tableData: {
-      type: Object,
-      required: true
-    },
-    rowKey: {
-      type: String,
-      default: 'pkId'
-    },
-    tableHeight: {
-      type: Number,
-      default: () => window.innerHeight - 220
-    }
+    showSelection: false,
+    rowKey: 'pkId',
+    tableHeight: () => window.innerHeight - 220
   })
+  // const props = defineProps({
+  //   modelValue: {
+  //     type: Object,
+  //     default: () => {
+  //       return { current: 1, size: 10, total: 0 }
+  //     }
+  //   },
+  //   showSelection: {
+  //     type: Boolean,
+  //     default: false
+  //   },
+  //   columns: {
+  //     type: Array,
+  //     required: true
+  //   },
+  //   tableData: {
+  //     type: Object,
+  //     required: true
+  //   },
+  //   rowKey: {
+  //     type: String,
+  //     default: 'pkId'
+  //   },
+  //   tableHeight: {
+  //     type: Number,
+  //     default: () => window.innerHeight - 220
+  //   }
+  // })
   const page = computed(() => {
     const value = props.modelValue
-    if (!value.total) value.total = 0
+    if (!value.total) value.total = '0'
     return value
   })
   console.log(page.value, 'page')
